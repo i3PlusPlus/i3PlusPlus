@@ -18,7 +18,7 @@ I'm not responsible for any damage done to your printer or lcd.
 
 Based on i3Extra by nepeee
 
-This is a modified version of the Marlin 1.1.1 firmware for the WANHAO Duplicator i3 Plus 3d printer.
-Currently it's in alpha state, same lcd functions are working and some of them is not.
+This is a modified version of the Marlin 1.1.4 firmware for the WANHAO Duplicator i3 Plus 3d printer.
+Currently it's in alpha state, some lcd functions are working and some of them is not.
 
 If you like to help us to make a better software for the printer don't hesitate to contribute in this project!
