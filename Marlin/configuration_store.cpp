@@ -182,6 +182,7 @@ MarlinSettings settings;
 #include "planner.h"
 #include "temperature.h"
 #include "ultralcd.h"
+#include "bi3_plus_lcd.h"
 #include "stepper.h"
 
 #if ENABLED(INCH_MODE_SUPPORT) || (ENABLED(ULTIPANEL) && ENABLED(TEMPERATURE_UNITS_SUPPORT))
@@ -636,6 +637,18 @@ void MarlinSettings::postprocess() {
       EEPROM_WRITE(dummy);
     #endif
 
+
+    //
+    // I3++
+    //
+    EEPROM_WRITE(planner.preheat_preset1_hotend);
+    EEPROM_WRITE(planner.preheat_preset1_bed);
+    EEPROM_WRITE(planner.preheat_preset2_hotend);
+    EEPROM_WRITE(planner.preheat_preset2_bed);
+    EEPROM_WRITE(planner.preheat_preset3_hotend);
+    EEPROM_WRITE(planner.preheat_preset3_bed);
+
+    
     #if HAS_MOTOR_CURRENT_PWM
       for (uint8_t q = 3; q--;) EEPROM_WRITE(stepper.motor_current_setting[q]);
     #else
@@ -1000,6 +1013,18 @@ void MarlinSettings::postprocess() {
         EEPROM_READ(dummy);
       #endif
 
+
+      //
+      // i3++
+      //
+      //Read preheat presets
+      EEPROM_READ(planner.preheat_preset1_hotend);
+      EEPROM_READ(planner.preheat_preset1_bed);
+      EEPROM_READ(planner.preheat_preset2_hotend);
+      EEPROM_READ(planner.preheat_preset2_bed);
+      EEPROM_READ(planner.preheat_preset3_hotend);
+      EEPROM_READ(planner.preheat_preset3_bed);
+
       #if HAS_MOTOR_CURRENT_PWM
         for (uint8_t q = 3; q--;) EEPROM_READ(stepper.motor_current_setting[q]);
       #else
@@ -1194,6 +1219,17 @@ void MarlinSettings::reset() {
   planner.max_jerk[Z_AXIS] = DEFAULT_ZJERK;
   planner.max_jerk[E_AXIS] = DEFAULT_EJERK;
 
+  //
+  // i3++
+  //
+  //Preheat Presets reset
+  planner.preheat_preset1_hotend = DEFAULT_PREHEAT_PRESET1_HOTEND;
+  planner.preheat_preset1_bed = DEFAULT_PREHEAT_PRESET1_BED;
+  planner.preheat_preset2_hotend = DEFAULT_PREHEAT_PRESET2_HOTEND;
+  planner.preheat_preset2_bed = DEFAULT_PREHEAT_PRESET2_BED;
+  planner.preheat_preset3_hotend = DEFAULT_PREHEAT_PRESET3_HOTEND;
+  planner.preheat_preset3_bed = DEFAULT_PREHEAT_PRESET3_BED;
+  
   #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
     planner.z_fade_height = 0.0;
   #endif

@@ -28,8 +28,10 @@
 #include "temperature.h"
 #include "thermistortables.h"
 #include "ultralcd.h"
+#include "bi3_plus_lcd.h"
 #include "planner.h"
 #include "language.h"
+#include "configuration_store.h"
 
 #if ENABLED(HEATER_0_USES_MAX6675)
   #include "spi.h"
@@ -447,6 +449,9 @@ uint8_t Temperature::soft_pwm_amount[HOTENDS],
             _SET_BED_PID();
           #endif
         }
+        lcdShowPage(66);
+        enqueue_and_echo_command("M106 S0");
+        settings.save();
         return;
       }
       lcd_update();
@@ -512,6 +517,7 @@ int Temperature::getHeaterPower(int heater) {
 //
 void Temperature::_temp_error(const int8_t e, const char * const serial_msg, const char * const lcd_msg) {
   static bool killed = false;
+  lcdShowPage(68);
   if (IsRunning()) {
     SERIAL_ERROR_START();
     serialprintPGM(serial_msg);

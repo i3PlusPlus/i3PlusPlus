@@ -34,7 +34,7 @@
 
 // Disable HardwareSerial.cpp to support chips without a UART (Attiny, etc.)
 
-#if !defined(USBCON) && (defined(UBRRH) || defined(UBRR0H) || defined(UBRR1H) || defined(UBRR2H) || defined(UBRR3H))
+#if !(defined(USBCON) || defined(ARDUINO_SERIAL)) && (defined(UBRRH) || defined(UBRR0H) || defined(UBRR1H) || defined(UBRR2H) || defined(UBRR3H))
 
   #if UART_PRESENT(SERIAL_PORT)
     ring_buffer_r rx_buffer = { { 0 }, 0, 0 };
@@ -509,7 +509,7 @@
   // Preinstantiate
   MarlinSerial customizedSerial;
 
-#endif // !USBCON && (UBRRH || UBRR0H || UBRR1H || UBRR2H || UBRR3H)
+#endif // !(USBCON || ARDUINO_SERIAL) && (UBRRH || UBRR0H || UBRR1H || UBRR2H || UBRR3H)
 
 // For AT90USB targets use the UART for BT interfacing
 #if defined(USBCON) && ENABLED(BLUETOOTH)

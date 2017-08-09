@@ -244,6 +244,7 @@
 #include "Marlin.h"
 
 #include "ultralcd.h"
+#include "bi3_plus_lcd.h"
 #include "planner.h"
 #include "stepper.h"
 #include "endstops.h"
@@ -256,6 +257,7 @@
 #include "nozzle.h"
 #include "duration_t.h"
 #include "types.h"
+#include "bi3_plus_lcd.h"
 #include "gcode.h"
 
 #if HAS_ABL
@@ -12801,6 +12803,7 @@ void idle(
   #endif
 ) {
   lcd_update();
+  lcdTask();
 
   host_keepalive();
 
@@ -13062,6 +13065,7 @@ void setup() {
   #endif
 
   lcd_init();
+  
 
   #ifndef CUSTOM_BOOTSCREEN_TIMEOUT
     #define CUSTOM_BOOTSCREEN_TIMEOUT 2500
@@ -13118,6 +13122,8 @@ void setup() {
   #if ENABLED(SWITCHING_NOZZLE)
     move_nozzle_servo(0);  // Initialize nozzle servo
   #endif
+  
+  lcdSetup();
 }
 
 /**
